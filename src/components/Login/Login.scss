@@ -1,0 +1,20 @@
+.loginBox {
+  background: url("../../../public/assets/images/loginbox.png");
+  background-size: cover;
+
+  .loginForm {
+    width: 400px;
+    height: 420px;
+    background: url("../../../public/assets/images/login.png");
+    background-size: cover;
+    border-radius: 10px;
+    position: fixed;
+    justify-content: space-between;
+    top: 0;
+    left: 600px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    padding: 150px 50px 50px 50px;
+  }
+}
