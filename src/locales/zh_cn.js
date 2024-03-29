@@ -1,0 +1,93 @@
+const zh_cn = {
+  index: "序号",
+  nickName: "昵称",
+  name: "姓名",
+  url: "URL",
+  icon: "图标",
+  type: "类型",
+  sort: "排序",
+  paterName: "父节点",
+  identifying: "权限标识",
+  email: "邮箱",
+  gender: "性别",
+  phoneNumber: "电话",
+  age: "年龄",
+  address: "地址",
+  description: "描述",
+  loginDateTime: "登录时间",
+  createDataTime: "创建时间",
+  updateDateTime: "更新时间",
+  isEnabled: "是否启用",
+  action: "操作",
+
+  delete: "删除",
+  deleteContent: "确认要删除这一项吗?",
+  update: "编辑",
+  add: "添加",
+  refresh: "刷新",
+  import: "导入",
+  export: "导出",
+  enabled: "启用",
+  ok: "确认",
+  cancel: "取消",
+  close: "关闭",
+  tip: "提示",
+  search: "搜索",
+
+  man: "男",
+  woMan: "女",
+  password: "密码",
+  confirmPassword: "确认密码",
+  role: "角色",
+  dir: "目录",
+  menu: "菜单",
+  button: "按钮",
+
+  descriptionPlaceholder: "请输入描述",
+  searchPlaceholder: "请输入要搜索的内容",
+  agePlaceholder: "请输入年龄",
+  adressPlaceholder: "请选择你的地址",
+  menuPlaceholder: "请选择你的菜单",
+  urlPlaceholder: "请输入菜单路由地址",
+  paterPlaceholder: "请选择父节点",
+
+  sortPlaceholder: "请输入排序",
+  sortRulesMessage: "排序不能为空！",
+
+  iconPlaceholder: "请选择图标",
+  iconRulesMessage: "图标不能为空",
+
+  identifyingPlaceholder: "请输入权限标识",
+  identifyingRulesMessage: "权限标识不能为空！",
+
+  typeRulesMessage: "菜单类型不能为空！",
+
+  phoneNumberPlaceholder: "请输入电话",
+  phoneNumberRulesMessage: "电话不能为空！",
+  phoneNumberErrorMessage: "输入的电话号码无效！",
+
+  emailPlaceholder: "请输入邮箱",
+  emailRulesMessage: "邮箱不能为空！",
+  emailErrorMessage: "输入的电子邮件无效！",
+
+  nickNamePlaceholder: "请输入昵称",
+  nickNameRulesMessage: "昵称不能为空！",
+  namePlaceholder: "请输入姓名",
+  nameRulesMessage: "姓名不能为空！",
+
+  rolePlaceholder: "请选择角色",
+  rolePlaceholder: "请选择角色",
+  roleRulesMessage: "角色不能为空！",
+
+  addPasswordPlaceholder: "请输入密码",
+  updatePasswordPlaceholder: "不修改请留空",
+  passwordRulesMessage: "密码不能为空！",
+  passwordErrorMessage: "输入的密码无效！",
+
+  addConfirmPasswordPlaceholder: "请确认密码",
+  updateConfirmPasswordPlaceholder: "不修改请留空",
+  confirmPasswordRulesMessage: "确认密码不能为空！",
+  confirmPasswordErrorMessage: "输入的确认密码不匹配!",
+};
+
+export default zh_cn;

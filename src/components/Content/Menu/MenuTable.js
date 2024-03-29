@@ -6,8 +6,10 @@ import { Button, Space, Switch, Table, Modal, Tag, Tooltip } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import MenuForm from "./MenuForm/MenuForm";
 import { icons } from "../../../assets/icons/antdIcons";
+import useLocale from "../../../hooks/useLocale";
 
 const MenuTable = () => {
+  const { myLocale } = useLocale();
   const [modal, confiirmHolder] = Modal.useModal();
   const dispatch = useDispatch();
   const { operateItem, operateType } = useSelector((state) => state.operateSlice);
@@ -30,34 +32,34 @@ const MenuTable = () => {
   useEffect(() => {
     const columns = [
       {
-        title: "序号",
+        title: myLocale.index,
         dataIndex: "index",
         key: "index",
         width: "6%",
       },
       {
-        title: "姓名",
+        title: myLocale.name,
         dataIndex: "name",
         key: "name",
       },
       {
-        title: "URL",
+        title: myLocale.url,
         dataIndex: "url",
         key: "url",
       },
       {
-        title: "父节点",
+        title: myLocale.paterName,
         dataIndex: "paterName",
         key: "paterName",
       },
       {
-        title: "图标",
+        title: myLocale.Icon,
         dataIndex: "icon",
         key: "icon",
         render: (item, record) => icons[item],
       },
       {
-        title: "类型",
+        title: myLocale.type,
         dataIndex: "type",
         key: "type",
         render: (item, record) => {
@@ -72,28 +74,28 @@ const MenuTable = () => {
         },
       },
       {
-        title: "描述",
+        title: myLocale.description,
         dataIndex: "description",
         key: "description",
       },
       {
-        title: "创建时间",
+        title: myLocale.createDataTime,
         dataIndex: "createDataTime",
         key: "createDataTime",
       },
       {
-        title: "更新时间",
+        title: myLocale.updateDateTime,
         dataIndex: "lastUpdateDateTime",
         key: "lastUpdateDateTime",
       },
       {
-        title: "是否启用",
+        title: myLocale.isEnabled,
         dataIndex: "isEnabled",
         key: "isEnabled",
         render: (_, record) => (
           <Switch
-            checkedChildren="启用"
-            unCheckedChildren="关闭"
+            checkedChildren={myLocale.enabled}
+            unCheckedChildren={myLocale.close}
             checked={record.isEnabled ? "checked" : ""}
             onChange={() => {
               enabledHandler(record);
@@ -102,33 +104,22 @@ const MenuTable = () => {
         ),
       },
       {
-        title: "排序",
+        title: myLocale.sort,
         dataIndex: "sort",
         key: "sort",
       },
       {
-        title: "操作",
+        title: myLocale.action,
         dataIndex: "action",
         key: "action",
         width: 120,
         render: (_, record) => (
           <Space size="large">
-            <Tooltip title="删除">
-              <Button
-                onClick={() => deleteHandler(record)}
-                icon={icons["icon-delete"]}
-                type="primary"
-                danger
-                shape="circle"
-              />
+            <Tooltip title={myLocale.delete}>
+              <Button onClick={() => deleteHandler(record)} icon={icons["icon-delete"]} type="primary" danger shape="circle" />
             </Tooltip>
-            <Tooltip title="编辑">
-              <Button
-                onClick={() => updateHandler(record)}
-                icon={icons["icon-edit"]}
-                type="primary"
-                shape="circle"
-              />
+            <Tooltip title={myLocale.update}>
+              <Button onClick={() => updateHandler(record)} icon={icons["icon-edit"]} type="primary" shape="circle" />
             </Tooltip>
           </Space>
         ),
@@ -156,7 +147,7 @@ const MenuTable = () => {
       });
       setDataSource(newDataSource);
     }
-  }, [data]);
+  }, [data, myLocale]);
 
   // 获得子项
   const getChildren = (item) => {
@@ -206,12 +197,12 @@ const MenuTable = () => {
   //删除
   const deleteHandler = (e) => {
     modal.confirm({
-      title: "提示",
+      title: myLocale.tip,
       icon: <ExclamationCircleFilled />,
-      content: `确认要删除【${e.name}】这个菜单吗?`,
-      okText: "确认",
+      content: myLocale.deleteContent,
+      okText: myLocale.ok,
       okType: "danger",
-      cancelText: "取消",
+      cancelText: myLocale.cancel,
       onOk() {
         deleteMenu(e.id);
       },

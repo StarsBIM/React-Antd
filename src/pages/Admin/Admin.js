@@ -27,25 +27,11 @@ const Admin = () => {
   };
   return (
     <Layout>
-      <Draggable
-        bounds={bounds}
-        onStart={onStart}
-        onStop={onStop}
-      >
-        <FloatButton
-          style={{ right: 0 }}
-          ref={draggleRef}
-          shape="square"
-          type="primary"
-          icon={<SettingOutlined />}
-          onClick={onSetTheme}
-        />
+      <Draggable bounds={bounds} onStart={onStart} onStop={onStop}>
+        <FloatButton style={{ right: 0 }} ref={draggleRef} shape="square" type="primary" icon={<SettingOutlined />} onClick={onSetTheme} />
       </Draggable>
 
-      <ThemeForm
-        open={isSetTheme}
-        onCancel={onSetTheme}
-      />
+      <ThemeForm open={isSetTheme} onCancel={onSetTheme} />
 
       <Sider theme="light">
         <LeftNav />
@@ -54,26 +40,11 @@ const Admin = () => {
         <MyHeader />
         <Content style={{ margin: "30px 0", background: token.colorBorderBg, borderRadius: token.borderRadius }}>
           <Routes>
-            <Route
-              path="home"
-              element={<Home />}
-            />
-            <Route
-              path="role"
-              element={<RolePage />}
-            />
-            <Route
-              path="menu"
-              element={<MenuPage />}
-            />
-            <Route
-              path="adminUser"
-              element={<AdminUserPage />}
-            />
-            <Route
-              path="user"
-              element={<UserPage />}
-            />
+            <Route path="home" element={<Home />} />
+            <Route path="role" element={<RolePage />} />
+            <Route path="menu" element={<MenuPage />} />
+            <Route path="adminUser" element={<AdminUserPage />} />
+            <Route path="user" element={<UserPage />} />
           </Routes>
         </Content>
       </Layout>

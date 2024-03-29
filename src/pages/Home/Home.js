@@ -1,12 +1,12 @@
-import { Image } from "antd";
+import { Calendar } from "antd";
 import React from "react";
+import Antd from "./Antd";
 
 const Home = () => {
   return (
     <div
       style={{
         backgroundImage: `url(${process.env.PUBLIC_URL + "/assets/images/loginbox.png"})`,
-        backgroundSize: "cover",
         width: "100%",
         height: "100%",
         display: "flex",
@@ -15,7 +15,7 @@ const Home = () => {
         fontSize: 100,
       }}
     >
-      <span>这是首页</span>
+      <Calendar />
     </div>
   );
 };

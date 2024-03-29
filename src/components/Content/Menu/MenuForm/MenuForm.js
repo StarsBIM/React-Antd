@@ -1,15 +1,10 @@
 import { Button, Divider, Flex, Form, Input, InputNumber, Modal, Radio, Select, Space, Switch, TreeSelect } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useAddMenuMutation,
-  useGetMenuByIdQuery,
-  useGetMenusQuery,
-  useUpdateMenuMutation,
-} from "../../../../store/api/menuApi";
+import { useAddMenuMutation, useGetMenuByIdQuery, useGetMenusQuery, useUpdateMenuMutation } from "../../../../store/api/menuApi";
 import { setOperateItem, setOperateType } from "../../../../store/reducer/operateSlice";
 import { icons } from "../../../../assets/icons/antdIcons";
-
+import useLocale from "../../../../hooks/useLocale";
 const options = [
   { label: "icon-home", value: "icon-home", icon: icons["icon-home"], key: "icon-home" },
   {
@@ -60,6 +55,7 @@ const options = [
 
 const MenuForm = () => {
   const dispatch = useDispatch();
+  const { myLocale } = useLocale();
   const [form] = Form.useForm();
   const [treeData, setTreeData] = useState([]);
   const [treeSelectValues, setTreeSelectValues] = useState([]);
@@ -69,13 +65,10 @@ const MenuForm = () => {
   const [addMenu, { isSuccess: isAddMenuSuccess }] = useAddMenuMutation();
   const [updateMenu, { isSuccess: isEditMenuSuccess }] = useUpdateMenuMutation();
   const { data: menus, isSuccess: isGetMenusSuccess } = useGetMenusQuery();
-  const { data: menuData, isSuccess: isGetByIdSuccess } = useGetMenuByIdQuery(
-    operateItem !== null ? operateItem.id : "",
-    {
-      skip: operateType !== "update",
-      refetchOnMountOrArgChange: true,
-    }
-  );
+  const { data: menuData, isSuccess: isGetByIdSuccess } = useGetMenuByIdQuery(operateItem !== null ? operateItem.id : "", {
+    skip: operateType !== "update",
+    refetchOnMountOrArgChange: true,
+  });
   // 处理数据
   useEffect(() => {
     if (isGetMenusSuccess && menus !== null) {
@@ -145,7 +138,7 @@ const MenuForm = () => {
   return (
     <Modal
       open={true}
-      title={operateType === "update" ? "修改" : "添加"}
+      title={operateType === "update" ? myLocale.update : myLocale.add}
       destroyOnClose
       footer={null}
       maskClosable={false}
@@ -164,27 +157,17 @@ const MenuForm = () => {
           span: 18,
         }}
       >
-        <Form.Item
-          label="名称"
-          name="name"
-          rules={[{ required: true, message: "名称不能为空！" }]}
-        >
-          <Input placeholder="请输入名称" />
+        <Form.Item label={myLocale.name} name="name" rules={[{ required: true, message: myLocale.nameRulesMessage }]}>
+          <Input placeholder={myLocale.namePlaceholder} />
         </Form.Item>
-        <Form.Item
-          label="URL"
-          name="url"
-        >
-          <Input placeholder="请输入菜单路由地址" />
+        <Form.Item label={myLocale.url} name="url">
+          <Input placeholder={myLocale.urlPlaceholder} />
         </Form.Item>
-        <Form.Item
-          label="父节点"
-          name="paterId"
-        >
+        <Form.Item label={myLocale.paterName} name="paterId">
           <TreeSelect
             showSearch
             allowClear
-            placeholder="请选择父节点"
+            placeholder={myLocale.paterPlaceholder}
             treeDefaultExpandAll
             showCheckedStrategy={TreeSelect}
             treeData={treeData}
@@ -192,15 +175,11 @@ const MenuForm = () => {
             onChange={onChange}
           />
         </Form.Item>
-        <Form.Item
-          label="图标"
-          name="icon"
-          rules={[{ required: true, message: "图标不能为空！" }]}
-        >
+        <Form.Item label={myLocale.icon} name="icon" rules={[{ required: true, message: myLocale.iconRulesMessage }]}>
           <Select
             showSearch
             allowClear
-            placeholder="请选择图标"
+            placeholder={myLocale.iconPlaceholder}
             options={options}
             optionRender={(option) => (
               <Space>
@@ -210,52 +189,28 @@ const MenuForm = () => {
             )}
           />
         </Form.Item>
-        <Form.Item
-          label="类型"
-          name="type"
-          rules={[{ required: true, message: "菜单类型不能为空！" }]}
-        >
+        <Form.Item label={myLocale.type} name="type" rules={[{ required: true, message: myLocale.typeRulesMessage }]}>
           <Radio.Group>
-            <Radio value={0}>目录</Radio>
-            <Radio value={1}>菜单</Radio>
-            <Radio value={2}>按钮</Radio>
+            <Radio value={0}>{myLocale.dir}</Radio>
+            <Radio value={1}>{myLocale.menu}</Radio>
+            <Radio value={2}>{myLocale.button}</Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item
-          label="描述"
-          name="description"
-        >
-          <Input.TextArea placeholder="请输入描述" />
+        <Form.Item label={myLocale.description} name="description">
+          <Input.TextArea placeholder={myLocale.descriptionPlaceholder} />
         </Form.Item>
-        <Form.Item
-          label="排序"
-          name="sort"
-          rules={[{ required: true, message: "排序不能为空！" }]}
-        >
-          <InputNumber
-            style={{ width: "100%" }}
-            placeholder="请输入排序"
-          />
+        <Form.Item label={myLocale.sort} name="sort" rules={[{ required: true, message: myLocale.sortRulesMessage }]}>
+          <InputNumber style={{ width: "100%" }} placeholder={myLocale.sortPlaceholder} />
         </Form.Item>
-        <Form.Item
-          name="isEnabled"
-          label="是否启用"
-          valuePropName="checked"
-        >
+        <Form.Item name="isEnabled" label={myLocale.isEnabled} valuePropName="checked">
           <Switch />
         </Form.Item>
-        <Flex
-          justify={"flex-end"}
-          align={"center"}
-        >
+        <Flex justify={"flex-end"} align={"center"}>
           <Form.Item>
             <Space size="small">
-              <Button onClick={cancelHandler}>取消</Button>
-              <Button
-                type="primary"
-                htmlType="submit"
-              >
-                确认
+              <Button onClick={cancelHandler}>{myLocale.cancel}</Button>
+              <Button type="primary" htmlType="submit">
+                {myLocale.ok}
               </Button>
             </Space>
           </Form.Item>

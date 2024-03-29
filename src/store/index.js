@@ -11,6 +11,7 @@ import { operateSlice } from "./reducer/operateSlice";
 import { authSlice } from "./reducer/authSlice";
 import { themeSlice } from "./reducer/themeSlice";
 import { currentRouteSlice } from "./reducer/currentRouteSlice";
+import { localeSlice } from "./reducer/localeSlice";
 
 const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ const store = configureStore({
     authSlice: authSlice.reducer,
     themeSlice: themeSlice.reducer,
     currentRouteSlice: currentRouteSlice.reducer,
+    localeSlice: localeSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(

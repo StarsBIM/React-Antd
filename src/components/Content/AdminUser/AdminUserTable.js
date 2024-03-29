@@ -1,22 +1,19 @@
 import { Button, Modal, Space, Switch, Table, Tooltip, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useDeleteAdminUserMutation,
-  useGetAdminUsersQuery,
-  useEnabledAdminUserMutation,
-} from "../../../store/api/adminUserApi";
+import { useDeleteAdminUserMutation, useGetAdminUsersQuery, useEnabledAdminUserMutation } from "../../../store/api/adminUserApi";
 import { setOperateItem, setOperateType } from "../../../store/reducer/operateSlice";
 import { icons } from "../../../assets/icons/icons";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import AdminUserForm from "./AdminUserForm/AdminUserForm";
 import useMessage from "../../../hooks/useMessage";
+import useLocale from "../../../hooks/useLocale";
 
 const AdminUserTable = () => {
+  const dispatch = useDispatch();
+  const { myLocale } = useLocale();
   const [modal, confiirmHolder] = Modal.useModal();
   const { success, error, warning, messageHolder } = useMessage();
-
-  const dispatch = useDispatch();
 
   const { operateItem, operateType } = useSelector((state) => state.operateSlice);
   const [dataSource, setDataSource] = useState([]);
@@ -38,74 +35,74 @@ const AdminUserTable = () => {
   useEffect(() => {
     const columns = [
       {
-        title: "序号",
+        title: myLocale.index,
         dataIndex: "index",
         key: "index",
         width: "5%",
       },
       {
-        title: "昵称",
+        title: myLocale.nickName,
         dataIndex: "nickName",
         key: "nickName",
       },
       {
-        title: "姓名",
+        title: myLocale.name,
         dataIndex: "name",
         key: "name",
       },
       {
-        title: "邮箱",
+        title: myLocale.email,
         dataIndex: "email",
         key: "email",
       },
       {
-        title: "电话",
+        title: myLocale.phoneNumber,
         dataIndex: "phoneNumber",
         key: "phoneNumber",
       },
       {
-        title: "性别",
+        title: myLocale.gender,
         dataIndex: "gender",
         key: "gender",
       },
       {
-        title: "年龄",
+        title: myLocale.age,
         dataIndex: "age",
         key: "age",
       },
       {
-        title: "地址",
+        title: myLocale.address,
         dataIndex: "address",
         key: "address",
       },
       {
-        title: "描述",
+        title: myLocale.description,
         dataIndex: "description",
         key: "description",
       },
       {
-        title: "登录时间",
+        title: myLocale.loginDateTime,
         dataIndex: "lastLoginDateTime",
         key: "lastLoginrDateTime",
       },
       {
-        title: "创建时间",
+        title: myLocale.createDataTime,
         dataIndex: "createDataTime",
         key: "createDataTime",
       },
       {
-        title: "更新时间",
+        title: myLocale.updateDateTime,
         dataIndex: "lastUpdateDateTime",
         key: "lastUpdateDateTime",
       },
       {
-        title: "是否启用",
+        title: myLocale.isEnabled,
         dataIndex: "isEnabled",
         key: "isEnabled",
         render: (_, record) => (
           <Switch
-            checkedChildren="启用"
-            unCheckedChildren="关闭"
+            checkedChildren={myLocale.enabled}
+            unCheckedChildren={myLocale.close}
             checked={record.isEnabled ? "checked" : ""}
             onChange={() => {
               enabledHandler(record);
@@ -114,28 +111,17 @@ const AdminUserTable = () => {
         ),
       },
       {
-        title: "操作",
+        title: myLocale.action,
         dataIndex: "action",
         key: "action",
         width: 120,
         render: (_, record) => (
           <Space size="large">
-            <Tooltip title="删除">
-              <Button
-                onClick={() => deleteHandler(record)}
-                icon={icons["icon-delete"]}
-                type="primary"
-                danger
-                shape="circle"
-              />
+            <Tooltip title={myLocale.delete}>
+              <Button onClick={() => deleteHandler(record)} icon={icons["icon-delete"]} type="primary" danger shape="circle" />
             </Tooltip>
-            <Tooltip title="编辑">
-              <Button
-                onClick={() => updateHandler(record)}
-                icon={icons["icon-edit"]}
-                type="primary"
-                shape="circle"
-              />
+            <Tooltip title={myLocale.update}>
+              <Button onClick={() => updateHandler(record)} icon={icons["icon-edit"]} type="primary" shape="circle" />
             </Tooltip>
           </Space>
         ),
@@ -154,7 +140,7 @@ const AdminUserTable = () => {
       });
       setDataSource(newDataSource);
     }
-  }, [data]);
+  }, [data, myLocale]);
 
   //转换菜单类型
   function genderConvert(gender) {
@@ -191,12 +177,12 @@ const AdminUserTable = () => {
   //删除
   const deleteHandler = (e) => {
     modal.confirm({
-      title: "提示",
+      title: myLocale.tip,
       icon: <ExclamationCircleFilled />,
-      content: `确认要删除【${e.name}】这个管理员吗?`,
-      okText: "确认",
+      content: myLocale.deleteContent,
+      okText: myLocale.ok,
       okType: "danger",
-      cancelText: "取消",
+      cancelText: myLocale.cancel,
       onOk() {
         const result = deleteAdminUser(e.id);
         result.then((data) => {

@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { icons } from "../../assets/icons/antdIcons";
 import { Header } from "antd/es/layout/layout";
 import { setLogout } from "../../store/reducer/authSlice";
+import useLocale from "../../hooks/useLocale";
 
 const MyHeader = () => {
   const dispatch = useDispatch();
   const { useToken } = theme;
   const { token } = useToken();
+  const { getLarge } = useLocale();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { currentRoute } = useSelector((state) => state.currentRouteSlice);
 
@@ -28,6 +30,7 @@ const MyHeader = () => {
       setIsFullscreen(true);
     }
   };
+
   //我的设置
   const userItems = [
     {
@@ -71,18 +74,18 @@ const MyHeader = () => {
     },
   ];
 
-  //语言设置
+  //多语言设置
   const globalItems = [
     {
       key: "1",
       label: (
         <Space
-          onClick={() => {
-            console.log("简体中文切换成功");
+          onClick={(e) => {
+            getLarge(e.target.id);
           }}
         >
-          <span>CN</span>
-          <span>简体中文</span>
+          <span id="zh-cn">CN</span>
+          <span id="zh-cn">简体中文</span>
         </Space>
       ),
     },
@@ -90,12 +93,12 @@ const MyHeader = () => {
       key: "2",
       label: (
         <Space
-          onClick={() => {
-            console.log("繁体中文切换成功");
+          onClick={(e) => {
+            getLarge(e.target.id);
           }}
         >
-          <span>HK</span>
-          <span>繁体中文</span>
+          <span id="zh-hk">HK</span>
+          <span id="zh-hk">繁体中文</span>
         </Space>
       ),
     },
@@ -103,12 +106,12 @@ const MyHeader = () => {
       key: "3",
       label: (
         <Space
-          onClick={() => {
-            console.log("English切换成功");
+          onClick={(e) => {
+            getLarge(e.target.id);
           }}
         >
-          <span>US</span>
-          <span>English</span>
+          <span id="en">US</span>
+          <span id="en">English</span>
         </Space>
       ),
     },
@@ -122,10 +125,7 @@ const MyHeader = () => {
         borderBottomRightRadius: token.borderRadius,
       }}
     >
-      <Flex
-        justify="space-between"
-        align="center"
-      >
+      <Flex justify="space-between" align="center">
         <Space>
           {icons["icon-folderOpen"]}
           {currentRoute.pater && (
@@ -136,11 +136,7 @@ const MyHeader = () => {
           )}
           <span style={{ fontWeight: "bold" }}>{currentRoute.name}</span>
         </Space>
-        <Flex
-          align="center"
-          justify="center"
-          gap={10}
-        >
+        <Flex align="center" justify="center" gap={10}>
           <Tooltip title={isFullscreen ? "退出全屏" : "全屏"}>
             <Button
               type="text"
@@ -150,20 +146,8 @@ const MyHeader = () => {
             />
           </Tooltip>
 
-          <Button
-            type="link"
-            shape="circle"
-            target="_blank"
-            href="https://space.bilibili.com/381958472"
-            icon={icons["icon-bilibili"]}
-          />
-          <Button
-            type="link"
-            shape="circle"
-            target="_blank"
-            href="https://github.com/StarsBIM/UMSAdmin"
-            icon={icons["icon-github"]}
-          />
+          <Button type="link" shape="circle" target="_blank" href="https://space.bilibili.com/381958472" icon={icons["icon-bilibili"]} />
+          <Button type="link" shape="circle" target="_blank" href="https://github.com/StarsBIM/UMSAdmin" icon={icons["icon-github"]} />
 
           <Dropdown
             menu={{
@@ -171,11 +155,7 @@ const MyHeader = () => {
             }}
             placement="bottom"
           >
-            <Button
-              type="text"
-              shape="circle"
-              icon={icons["icon-global"]}
-            />
+            <Button type="text" shape="circle" icon={icons["icon-global"]} />
           </Dropdown>
           <Dropdown
             menu={{

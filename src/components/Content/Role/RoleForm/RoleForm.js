@@ -4,9 +4,11 @@ import { setOperateItem, setOperateType } from "../../../../store/reducer/operat
 import { useGetAllMenusQuery } from "../../../../store/api/menuApi";
 import { Button, Space, Switch, Modal, Form, Input, Flex, TreeSelect, Divider } from "antd";
 import { useAddRoleMutation, useGetRoleByIdQuery, useUpdateRoleMutation } from "../../../../store/api/roleApi";
+import useLocale from "../../../../hooks/useLocale";
 
 const RoleForm = () => {
   const dispatch = useDispatch();
+  const { myLocale } = useLocale();
   const [form] = Form.useForm();
   const [treeData, setTreeData] = useState([]);
   const [treeSelectValues, setTreeSelectValues] = useState([]);
@@ -16,13 +18,10 @@ const RoleForm = () => {
   const [addRole, { isSuccess: isAddSuccess }] = useAddRoleMutation();
   const [updateRole, { isSuccess: isUpdateSuccess }] = useUpdateRoleMutation();
   const { data: menuArr, isSuccess: isGetAllSuccess } = useGetAllMenusQuery();
-  const { data: roleData, isSuccess: isGetByIdSuccess } = useGetRoleByIdQuery(
-    operateItem !== null ? operateItem.id : null,
-    {
-      skip: operateType !== "update",
-      refetchOnMountOrArgChange: true,
-    }
-  );
+  const { data: roleData, isSuccess: isGetByIdSuccess } = useGetRoleByIdQuery(operateItem !== null ? operateItem.id : null, {
+    skip: operateType !== "update",
+    refetchOnMountOrArgChange: true,
+  });
 
   // 处理数据
   useEffect(() => {
@@ -95,7 +94,7 @@ const RoleForm = () => {
   return (
     <Modal
       open={true}
-      title={operateType === "update" ? "修改" : "添加"}
+      title={operateType === "update" ? myLocale.update : myLocale.add}
       destroyOnClose
       footer={null}
       maskClosable={false}
@@ -114,30 +113,16 @@ const RoleForm = () => {
           span: 18,
         }}
       >
-        <Form.Item
-          label="名称"
-          name="name"
-          rules={[{ required: true, message: "名称不能为空！" }]}
-        >
-          <Input placeholder="请输入名称" />
+        <Form.Item label={myLocale.name} name="name" rules={[{ required: true, message: myLocale.nameRulesMessage }]}>
+          <Input placeholder={myLocale.nickNamePlaceholder} />
         </Form.Item>
-        <Form.Item
-          label="权限标识"
-          name="identifying"
-          rules={[{ required: true, message: "权限标识不能为空！" }]}
-        >
-          <Input placeholder="请输入权限标识" />
+        <Form.Item label={myLocale.identifying} name="identifying" rules={[{ required: true, message: myLocale.identifyingRulesMessage }]}>
+          <Input placeholder={myLocale.identifyingPlaceholder} />
         </Form.Item>
-        <Form.Item
-          label="描述"
-          name="description"
-        >
-          <Input.TextArea placeholder="请输入描述" />
+        <Form.Item label={myLocale.description} name="description">
+          <Input.TextArea placeholder={myLocale.descriptionPlaceholder} />
         </Form.Item>
-        <Form.Item
-          label="权限"
-          name="menuIds"
-        >
+        <Form.Item label={myLocale.menu} name="menuIds">
           <TreeSelect
             showSearch
             multiple
@@ -148,29 +133,19 @@ const RoleForm = () => {
             value={treeSelectValues}
             onChange={onChange}
             treeCheckable={true}
-            placeholder="请勾选需要的权限"
+            placeholder={myLocale.menuPlaceholder}
           />
         </Form.Item>
-        <Form.Item
-          name="isEnabled"
-          label="是否启用"
-          valuePropName="checked"
-        >
+        <Form.Item name="isEnabled" label={myLocale.isEnabled} valuePropName="checked">
           <Switch />
         </Form.Item>
 
-        <Flex
-          justify={"flex-end"}
-          align={"center"}
-        >
+        <Flex justify={"flex-end"} align={"center"}>
           <Form.Item>
             <Space size="small">
-              <Button onClick={cancelHandler}>取消</Button>
-              <Button
-                type="primary"
-                htmlType="submit"
-              >
-                确认
+              <Button onClick={cancelHandler}>{myLocale.cancel}</Button>
+              <Button type="primary" htmlType="submit">
+                {myLocale.ok}
               </Button>
             </Space>
           </Form.Item>
