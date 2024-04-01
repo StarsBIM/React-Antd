@@ -28,14 +28,13 @@ const MenuTable = () => {
     }
   }, [operateType]);
 
-  //处理数据
+  //处理columns数据
   useEffect(() => {
     const columns = [
       {
         title: myLocale.index,
         dataIndex: "index",
         key: "index",
-        width: "6%",
       },
       {
         title: myLocale.name,
@@ -53,7 +52,7 @@ const MenuTable = () => {
         key: "paterName",
       },
       {
-        title: myLocale.Icon,
+        title: myLocale.icon,
         dataIndex: "icon",
         key: "icon",
         render: (item, record) => icons[item],
@@ -112,7 +111,7 @@ const MenuTable = () => {
         title: myLocale.action,
         dataIndex: "action",
         key: "action",
-        width: 120,
+        width: 150,
         render: (_, record) => (
           <Space size="large">
             <Tooltip title={myLocale.delete}>
@@ -126,6 +125,10 @@ const MenuTable = () => {
       },
     ];
     setColumns(columns);
+  }, [myLocale]);
+
+  //处理dataSource数据
+  useEffect(() => {
     if (isGetSuccess && data !== null) {
       const newDataSource = data.map((item, index) => {
         if (item.children === null) {
@@ -147,7 +150,7 @@ const MenuTable = () => {
       });
       setDataSource(newDataSource);
     }
-  }, [data, myLocale]);
+  }, [data]);
 
   // 获得子项
   const getChildren = (item) => {

@@ -28,8 +28,7 @@ const RoleTable = () => {
       dispatch(setOperateType());
     }
   }, [operateType]);
-
-  //处理数据
+  //处理columns数据
   useEffect(() => {
     const columns = [
       {
@@ -97,6 +96,9 @@ const RoleTable = () => {
       },
     ];
     setColumns(columns);
+  }, [myLocale]);
+  //处理dataSource数据
+  useEffect(() => {
     if (isGetSuccess && data !== null) {
       const newDataSource = data.map((item, index) => {
         return {
@@ -107,7 +109,7 @@ const RoleTable = () => {
       });
       setDataSource(newDataSource);
     }
-  }, [data, myLocale]);
+  }, [data]);
 
   //启用
   const enabledHandler = (e) => {

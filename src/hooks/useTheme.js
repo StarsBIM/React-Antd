@@ -2,7 +2,24 @@ import { theme } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setThemeType, setMyToken, setCompactType } from "../store/reducer/themeSlice";
-import { generate, green, presetPalettes, red, yellow } from "@ant-design/colors";
+import { generate, presetPalettes } from "@ant-design/colors";
+
+//颜色预设
+const presetColors = [
+  "#1677ff",
+  "#722ED1",
+  "#13C2C2",
+  "#52C41A",
+  "#EB2F96",
+  "#F5222D",
+  "#FA8C16",
+  "#FADB14",
+  "#FA541C",
+  "#2F54EB",
+  "#FAAD14",
+  "#A0D911",
+  "#000000",
+];
 
 //获取系统颜色预设
 const genPresets = (presets = presetPalettes) =>
@@ -24,34 +41,16 @@ const defaultTokenConfig = {
   borderRadius: 6, //基础圆角
 };
 
-//读取本地的主题设置
-const myTheme = JSON.parse(localStorage.getItem("myTheme"));
-
 //自定义主题设置钩子
 export default function useTheme() {
   const dispatch = useDispatch();
-  const [algorithm, setAlgorithm] = useState(themeConfig.default);
+  const [algorithm, setAlgorithm] = useState([]);
   const { themeType, compactType, myToken } = useSelector((state) => state.themeSlice);
 
-  //加载保存在本地的主题设置
-  useEffect(() => {
-    if (myTheme.themeType) {
-      dispatch(setThemeType(myTheme.themeType));
-    }
-    if (myTheme.compactType) {
-      dispatch(setCompactType(myTheme.compactType));
-    }
-    if (myTheme.myToken) {
-      dispatch(setMyToken(myTheme.myToken));
-    }
-  }, [myTheme]);
-
-  //自定义颜色选择器预设
+  //颜色选择器预设
   const presets = genPresets({
-    primary: generate(myToken.colorPrimary),
-    red,
-    green,
-    yellow,
+    主题色: generate(myToken.colorPrimary),
+    预设颜色: presetColors,
   });
 
   //获得主题设置数据
@@ -59,16 +58,18 @@ export default function useTheme() {
     switch (value[0].name[0]) {
       case "themeType":
         dispatch(setThemeType(value[0].value));
-        return;
+        break;
       case "colorPrimary":
         dispatch(setMyToken({ ...myToken, colorPrimary: value[0].value }));
-        return;
+        break;
       case "borderRadius":
         dispatch(setMyToken({ ...myToken, borderRadius: value[0].value }));
-        return;
+        break;
       case "compactType":
         dispatch(setCompactType(value[0].value));
-        return;
+        break;
+      default:
+        break;
     }
   }, []);
 

@@ -39,7 +39,7 @@ const useDraggable = (direction) => {
           top: -targetRect.top + uiData.y,
           bottom: clientHeight - (targetRect.bottom - uiData.y),
         });
-        return;
+        break;
       case "leftRight":
         //左右拖动
         setBounds({
@@ -48,7 +48,7 @@ const useDraggable = (direction) => {
           top: 0,
           bottom: 0,
         });
-        return;
+        break;
       default:
         //自由拖动
         setBounds({
@@ -57,7 +57,7 @@ const useDraggable = (direction) => {
           top: -targetRect.top + uiData.y,
           bottom: clientHeight - (targetRect.bottom - uiData.y),
         });
-        return;
+        break;
     }
   };
 

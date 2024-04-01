@@ -135,7 +135,7 @@ const AdminUserForm = () => {
           <InputNumber placeholder={myLocale.agePlaceholder} style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item label={myLocale.address} name="address">
-          <Cascader options={addressOptions} placeholder={myLocale.adressPlaceholder} />
+          <Cascader options={addressOptions} placeholder={myLocale.addressPlaceholder} />
         </Form.Item>
         <Form.Item
           label={myLocale.email}

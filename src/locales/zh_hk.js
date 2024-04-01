@@ -47,7 +47,7 @@ const zh_hk = {
   descriptionPlaceholder: "請輸入描述",
   searchPlaceholder: "請輸入要蒐索的內容",
   agePlaceholder: "請輸入年齡",
-  adressPlaceholder: "請選擇你的地址",
+  addressPlaceholder: "請選擇你的地址",
   menuPlaceholder: "請選擇你的選單",
   urlPlaceholder: "請輸入選單路由地址",
   paterPlaceholder: "請選擇父節點",

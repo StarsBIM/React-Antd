@@ -1,6 +1,5 @@
 import { Calendar } from "antd";
 import React from "react";
-import Antd from "./Antd";
 
 const Home = () => {
   return (

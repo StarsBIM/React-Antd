@@ -8,3 +8,6 @@ body {
 #root {
   padding: 24px;
 }
+button {
+  box-shadow: none !important;
+}

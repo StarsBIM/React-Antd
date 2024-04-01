@@ -1,4 +1,4 @@
-import { Button, Modal, Space, Switch, Table, Tooltip, message } from "antd";
+import { Button, Flex, Modal, Space, Switch, Table, Tooltip, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDeleteAdminUserMutation, useGetAdminUsersQuery, useEnabledAdminUserMutation } from "../../../store/api/adminUserApi";
@@ -30,8 +30,7 @@ const AdminUserTable = () => {
       dispatch(setOperateType());
     }
   }, [operateType]);
-
-  //处理数据
+  //处理columns数据
   useEffect(() => {
     const columns = [
       {
@@ -128,6 +127,10 @@ const AdminUserTable = () => {
       },
     ];
     setColumns(columns);
+  }, [myLocale]);
+
+  //处理dataSource数据
+  useEffect(() => {
     if (isGetSuccess && data !== null) {
       const newDataSource = data.map((item, index) => {
         return {
@@ -140,7 +143,7 @@ const AdminUserTable = () => {
       });
       setDataSource(newDataSource);
     }
-  }, [data, myLocale]);
+  }, [data]);
 
   //转换菜单类型
   function genderConvert(gender) {

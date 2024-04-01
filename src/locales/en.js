@@ -47,7 +47,7 @@ const en = {
   descriptionPlaceholder: "Please enter a description",
   searchPlaceholder: "Please enter the content you want to search for",
   agePlaceholder: "Please enter your age",
-  adsressPlaceholder: "Please select your address",
+  addressPlaceholder: "Please select your address",
   menuPlaceholder: "Please select your menu",
   urlPlaceholder: "Please enter the menu routing address",
   paterPlaceholder: "Please select Parent",

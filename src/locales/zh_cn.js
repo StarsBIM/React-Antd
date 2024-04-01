@@ -46,7 +46,7 @@ const zh_cn = {
   descriptionPlaceholder: "请输入描述",
   searchPlaceholder: "请输入要搜索的内容",
   agePlaceholder: "请输入年龄",
-  adressPlaceholder: "请选择你的地址",
+  addressPlaceholder: "请选择你的地址",
   menuPlaceholder: "请选择你的菜单",
   urlPlaceholder: "请输入菜单路由地址",
   paterPlaceholder: "请选择父节点",

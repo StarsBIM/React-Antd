@@ -101,21 +101,10 @@ const UserTable = () => {
         render: (_, record) => (
           <Space size="large">
             <Tooltip title="删除">
-              <Button
-                onClick={() => deleteHandler(record)}
-                icon={icons["icon-delete"]}
-                type="primary"
-                danger
-                shape="circle"
-              />
+              <Button onClick={() => deleteHandler(record)} icon={icons["icon-delete"]} type="primary" danger shape="circle" />
             </Tooltip>
             <Tooltip title="编辑">
-              <Button
-                onClick={() => updateHandler(record)}
-                icon={icons["icon-edit"]}
-                type="primary"
-                shape="circle"
-              />
+              <Button onClick={() => updateHandler(record)} icon={icons["icon-edit"]} type="primary" shape="circle" />
             </Tooltip>
           </Space>
         ),
